@@ -1,1 +1,1 @@
-# lq.js
+# loq.js

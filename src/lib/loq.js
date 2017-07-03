@@ -553,7 +553,7 @@ class EnumerableMap extends EnumerableSet {
   }
 }
 
-const lq = Enumerable.create.bind(Enumerable);
+const loq = Enumerable.create.bind(Enumerable);
 
 const lqProps = {
   fromSingleValue: Enumerable.fromSingleValue,
@@ -564,6 +564,6 @@ const lqProps = {
   empty: Enumerable.empty
 };
 
-mergePropertiesAsReadOnly(lqProps, lq);
+mergePropertiesAsReadOnly(lqProps, loq);
 
-export default lq;
+export default loq;

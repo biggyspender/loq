@@ -1,8 +1,8 @@
 {
-  "name": "lq",
+  "name": "loq",
   "version": "0.0.1",
   "description": "es2015 implementation of linq",
-  "main": "lib/lq.js",
+  "main": "lib/loq.js",
   "scripts": {
     "build": "webpack --env build",
     "dev": "webpack --progress --colors --watch --env dev",
