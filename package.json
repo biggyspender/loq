@@ -1,7 +1,7 @@
 {
   "name": "lq",
-  "version": "0.3.0",
-  "description": "Produce universal library with webpack and es6",
+  "version": "0.0.1",
+  "description": "es2015 implementation of linq",
   "main": "lib/lq.js",
   "scripts": {
     "build": "webpack --env build",
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/biggyspender/lq"
   },
   "keywords": [
     "webpack",
@@ -43,7 +43,7 @@
   "author": "Chris Sperry",
   "license": "MIT",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/biggyspender/lq/issues"
   },
-  "homepage": ""
+  "homepage": "https://github.com/biggyspender/lq"
 }
