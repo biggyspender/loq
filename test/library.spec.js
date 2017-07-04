@@ -382,3 +382,53 @@ describe("instance methods", () => {
     done();
   });
 });
+
+describe("OrderedEnumerable", () => {
+  it("can perform secondary ordering", done => {
+    let d1 = [{
+      id: 1,
+      value: "a",
+      order: 1
+    }, {
+      id: 2,
+      value: "b",
+      order: 4
+    }, {
+      id: 1,
+      value: "b",
+      order: 2
+    }, {
+      id: 2,
+      value: "a",
+      order: 3
+    }];
+
+    assert(loq(d1).orderBy(x => x.id).thenBy(x => x.value).select(x => x.order).sequenceEqual([1, 2, 3, 4]));
+    done();
+  });
+
+  it("can perform secondary descending ordering", done => {
+    let d1 = [{
+      id: 1,
+      value: "a",
+      order: 1
+    }, {
+      id: 2,
+      value: "b",
+      order: 4
+    }, {
+      id: 1,
+      value: "b",
+      order: 2
+    }, {
+      id: 2,
+      value: "a",
+      order: 3
+    }];
+
+    assert(loq(d1).orderBy(x => x.id).thenByDescending(x => x.value).select(x => x.order).sequenceEqual([2, 1, 4, 3]));
+    done();
+  });
+
+});
+
