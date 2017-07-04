@@ -339,11 +339,12 @@ class Enumerable {
         foundItem = item;
       }
     }
+
     if (itemCount === 1) {
       // ReSharper disable once UsageOfPossiblyUnassignedValue
       return foundItem;
     }
-    return null;
+    return undefined;
   }
 
   skip(numItems) {
@@ -447,10 +448,10 @@ class Enumerable {
     });
   }
 
-  union(seq) {
+  union(...seqs) {
     const set = new Set();
 
-    return this.concat(seq).where(item => {
+    return this.concat(...seqs).where(item => {
       if (set.has(item)) {
         return false;
       }
