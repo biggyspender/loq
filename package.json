@@ -1,6 +1,6 @@
 {
   "name": "loq",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "es2015 implementation of linq",
   "main": "lib/loq.js",
   "scripts": {
