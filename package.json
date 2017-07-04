@@ -32,9 +32,9 @@
     "url": "https://github.com/biggyspender/lq"
   },
   "keywords": [
-    "webpack",
-    "es6",
-    "starter",
+    "linq",
+    "iterator",
+    "generator",
     "library",
     "universal",
     "umd",
