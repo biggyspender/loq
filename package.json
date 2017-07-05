@@ -1,6 +1,6 @@
 {
   "name": "loq",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "es2015 implementation of linq",
   "main": "lib/loq.js",
   "scripts": {
@@ -30,7 +30,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/biggyspender/lq"
+    "url": "https://github.com/biggyspender/loq"
   },
   "keywords": [
     "linq",
@@ -44,7 +44,7 @@
   "author": "Chris Sperry",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/biggyspender/lq/issues"
+    "url": "https://github.com/biggyspender/loq/issues"
   },
-  "homepage": "https://github.com/biggyspender/lq"
+  "homepage": "https://github.com/biggyspender/loq"
 }
