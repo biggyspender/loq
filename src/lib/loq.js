@@ -120,7 +120,7 @@ class Enumerable {
       });
 
     if (f.count === 0) {
-      return 0;
+      throw Error("sequence contains no elements");
     }
     return f.tot / f.count;
   }
@@ -245,7 +245,7 @@ class Enumerable {
     const sortFactor = descending ? -1 : 1;
 
     groupsArr.sort((a, b) => {
-      return (a.key < b.key) ? -sortFactor : ((a.key > b.key) ? sortFactor : 0);
+      return (a.key < b.key) ? -sortFactor : ((a.key > b.key) ? sortFactor : /* istanbul ignore next */ 0);
     });
     const returnValue = new OrderedEnumerable(groupsArr);// eslint-disable-line no-use-before-define
 
@@ -480,6 +480,7 @@ class Enumerable {
   }
 
   dump() {
+    /* istanbul ignore next */
     console.log(this.toArray());
   }
 }
@@ -515,6 +516,7 @@ class OrderedEnumerable extends Enumerable {
 class EnumerableSet extends Enumerable {
   constructor(set) {
     super(set);
+    this.__isEnumerableSet = true;
   }
 
   entries() {
@@ -533,6 +535,7 @@ class EnumerableSet extends Enumerable {
 class EnumerableMap extends EnumerableSet {
   constructor(map) {
     super(map);
+    this.__isEnumerableMap = true;
   }
 
   keys() {

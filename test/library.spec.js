@@ -1,7 +1,7 @@
 /* global describe, it, before */
 
 import chai from "chai";
-import loq from "../lib/loq.js";
+import loq from "../src/index.js";
 
 const assert = chai.assert;
 
@@ -49,6 +49,11 @@ describe("static methods", () => {
     done();
   });
 
+  it("throws when passing a non-function to loq.fromGenerator", done => {
+    assert.throws(() => loq.fromGenerator({}));
+    done();
+  });
+
   it("can repeat a single item", done => {
     let seq = loq.repeat(1, 2);
 
@@ -76,12 +81,55 @@ describe("static methods", () => {
     assert(seq.sequenceEqual([]));
     done();
   });
+
+  it("can't create an Enumerable from a non-iterable", done => {
+    assert.throws(() => loq({}));
+    done();
+  });
+
+  it("can create an EnumerableSet from a Set", done => {
+    let set = new Set();
+
+    set.add("woo");
+    let lSet = loq(set);
+
+    assert(lSet.__isEnumerableSet);
+    assert(lSet.has("woo"));
+    assert(!lSet.has("foo"));
+    done();
+  });
+
+  it("can create an EnumerableMap from a Map", done => {
+    let map = new Map();
+
+    map.set("foo", "woo");
+    let lMap = loq(map);
+
+    assert(lMap.__isEnumerableMap);
+    assert(lMap.values().sequenceEqual(["woo"]));
+    assert(lMap.keys().sequenceEqual(["foo"]));
+    done();
+  });
+
+  it("returns the same object when create is passed an Enumerable", done => {
+    let item = loq([]);
+
+    assert(item === loq(item));
+    done();
+  });
+
+  it("returns the same object when empty is accessed a second time", done => {
+    assert(loq.empty === loq.empty);
+    done();
+  });
 });
 
 describe("instance methods", () => {
   it("can compare sequences", done => {
     assert(loq([1, 2, 3]).sequenceEqual([1, 2, 3]));
     assert(!loq([1, 2, 3]).sequenceEqual([1, 2, 4]));
+    assert(!loq([1, 2, 3]).sequenceEqual([1, 2, 3, 4]));
+    assert(!loq([1, 2, 3, 4]).sequenceEqual([1, 2, 3]));
     done();
   });
 
@@ -106,6 +154,31 @@ describe("instance methods", () => {
     assert(map.get(2) === "aimee");
     assert(map.get(5) === "tilly");
     assert(map.get(3) === undefined);
+    done();
+  });
+
+  it("throws if asked to create a map with duplicate keys", done => {
+    let data = loq([[1, "chris"], [1, "chris2"], [2, "aimee"], [5, "tilly"]]);
+
+    assert.throws(() => data.toMap(([key, _]) => key, ([_, value]) => value));
+    done();
+  });
+
+  it("can create 'map' objects", done => {
+    let data = loq([[1, "chris"], [2, "aimee"], [5, "tilly"]]);
+    let map = data.toObject(([_, key]) => key, ([value, _]) => value);
+
+    assert(map["chris"] === 1);
+    assert(map["tilly"] === 5);
+    assert(map["aimee"] === 2);
+    assert(map["foo"] === undefined);
+    done();
+  });
+
+  it("throws when creating 'map' objects with non-string keys", done => {
+    let data = loq([[1, "chris"], [2, "aimee"], [5, "tilly"]]);
+
+    assert.throws(() => data.toObject(([key, _]) => key, ([_, value]) => value));
     done();
   });
 
@@ -147,6 +220,18 @@ describe("instance methods", () => {
     let data = loq([1, 2, 3]);
 
     assert(data.average() === 2);
+    done();
+  });
+
+  it("can calculate averages", done => {
+    let data = loq([1, 2, 3]);
+
+    assert(data.average() === 2);
+    done();
+  });
+
+  it("throws when calculating average of empty sequence", done => {
+    assert.throws(() => loq([]).average());
     done();
   });
 
@@ -291,17 +376,29 @@ describe("instance methods", () => {
 
   it("can pick a single (unique) value from a sequence", done => {
     assert(loq.fromSingleValue(5).single() === 5);
+    assert(loq([1, 2]).single(x => x === 1) === 1);
     done();
   });
 
-  it("can throw when picking single (unique) value from an empty sequence", done => {
+  it("throws when picking single (unique) value from an empty sequence", done => {
     assert.throws(() => loq.empty.single());
+    done();
+  });
+
+  it("throws when picking single (unique) value from an a sequence of more than one item", done => {
+    assert.throws(() => loq([1, 2]).single());
     done();
   });
 
   it("has working singleOrDefault implementation", done => {
     assert(loq.fromSingleValue(5).singleOrDefault() === 5);
     assert(loq.empty.singleOrDefault() === undefined);
+    assert(loq([1, 2]).singleOrDefault(x => x === 1) === 1);
+    done();
+  });
+
+  it("throws when picking singleOrDefault (unique) value from an a sequence of more than one item", done => {
+    assert.throws(() => loq([1, 2]).singleOrDefault());
     done();
   });
 
@@ -360,6 +457,9 @@ describe("instance methods", () => {
     }, {
       id: 2,
       value: "andrew"
+    }, {
+      id: 4,
+      value: "not relevant"
     }];
     let d2 = [{
       id: 1,
@@ -370,6 +470,9 @@ describe("instance methods", () => {
     }, {
       id: 2,
       value: "johnson"
+    }, {
+      id: 3,
+      value: "not relevant"
     }];
 
     assert(loq(d1)
