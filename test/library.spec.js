@@ -465,7 +465,7 @@ describe("instance methods", () => {
   });
 
   it("has working join implementation", done => {
-    let d1 = [{
+    let outerSeq = [{
       id: 1,
       value: "chris"
     }, {
@@ -475,7 +475,7 @@ describe("instance methods", () => {
       id: 4,
       value: "not relevant"
     }];
-    let d2 = [{
+    let innerSeq = [{
       id: 1,
       value: "sperry"
     }, {
@@ -489,16 +489,55 @@ describe("instance methods", () => {
       value: "not relevant"
     }];
 
-    let items = loq(d1)
-      .join(d2,
-        dd1 => dd1.id,
-        dd2 => dd2.id,
-        (dd1, dd2) => dd1.value + " " + dd2.value)
+    let outerKeySelector = outerItem => outerItem.id;
+    let innerKeySelector = innerItems => innerItems.id;
+    let items = loq(outerSeq)
+      .join(innerSeq,
+        outerKeySelector,
+        innerKeySelector,
+        (outerItem, innerItem) => outerItem.value + " " + innerItem.value)
       .orderBy(x => x);
 
     assert(items.sequenceEqual(["andrew johnson", "chris pike", "chris sperry"]));
     done();
   });
+});
+
+it("has working groupJoin implementation", done => {
+  let outerSeq = [{
+    id: 1,
+    value: "chris"
+  }, {
+    id: 2,
+    value: "andrew"
+  }, {
+    id: 4,
+    value: "not relevant"
+  }];
+  let innerSeq = [{
+    id: 1,
+    value: "sperry"
+  }, {
+    id: 1,
+    value: "pike"
+  }, {
+    id: 2,
+    value: "johnson"
+  }, {
+    id: 3,
+    value: "not relevant"
+  }];
+  let outerKeySelector = outerItem => outerItem.id;
+  let innerKeySelector = innerItems => innerItems.id;
+  let selector = (outerItem, innerItem) => outerItem.value + " " + innerItem.value;
+
+  let join1 = loq(outerSeq)
+      .groupJoin(innerSeq, outerKeySelector, innerKeySelector, (outer, innerSeq) => ({outer, innerSeq}))
+      .selectMany(({outer, innerSeq}) => innerSeq.select(i => selector(outer, i)));
+  let join2 = loq(outerSeq).join(innerSeq, outerKeySelector, innerKeySelector, selector);
+
+  assert(join1.sequenceEqual(join2));
+  done();
 });
 
 describe("OrderedEnumerable", () => {
