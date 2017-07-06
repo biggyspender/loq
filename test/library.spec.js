@@ -270,6 +270,20 @@ describe("instance methods", () => {
     done();
   });
 
+  it("can find an elementAt a specific index", done => {
+    let data = loq.range(0, 10);
+
+    assert(data.elementAt(9) === 9);
+    done();
+  });
+
+  it("throws when elementAt is passed an out of range index", done => {
+    let data = loq.range(0, 10);
+
+    assert.throws(() => data.elementAt(10));
+    done();
+  });
+
   it("can find all items in a sequence except those in another sequence", done => {
     let data = loq([6, 3, 2, 1, 2, 3]);
     let otherSeq = [2, 3];

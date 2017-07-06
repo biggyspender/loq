@@ -159,6 +159,10 @@ class Enumerable {
     return this.groupBy(selector).select(g => g.first());
   }
 
+  elementAt(index) {
+    return this.single((x, i) => i === index);
+  }
+
   except(seq) {
     const set = new Set();
 
@@ -169,8 +173,10 @@ class Enumerable {
   }
 
   first(pred = truePredicate) {
+    let i = 0;
+
     for (let item of this) {
-      if (pred(item)) {
+      if (pred(item, i++)) {
         return item;
       }
     }
@@ -178,8 +184,10 @@ class Enumerable {
   }
 
   firstOrDefault(pred = truePredicate) {
+    let i = 0;
+
     for (let item of this) {
-      if (pred(item)) {
+      if (pred(item, i++)) {
         return item;
       }
     }
@@ -329,9 +337,10 @@ class Enumerable {
   single(pred = truePredicate) {
     let itemCount = 0;
     let foundItem;
+    let i = 0;
 
     for (let item of this) {
-      if (pred(item)) {
+      if (pred(item, i++)) {
         ++itemCount;
         if (itemCount > 1) {
           throw Error("sequence contains more than one element");
@@ -349,9 +358,10 @@ class Enumerable {
   singleOrDefault(pred = truePredicate) {
     let itemCount = 0;
     let foundItem;
+    let i = 0;
 
     for (let item of this) {
-      if (pred(item)) {
+      if (pred(item, i++)) {
         ++itemCount;
         if (itemCount > 1) {
           throw Error("sequence contains more than one element");
