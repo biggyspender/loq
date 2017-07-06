@@ -202,6 +202,20 @@ class Enumerable {
     });
   }
 
+  groupJoin(innerSeq, outerKeySelector, innerKeySelector, selector) {
+    innerSeq = Enumerable.create(innerSeq);
+    const lookup = innerSeq.toLookup(innerKeySelector);
+    const outerSeq = this;
+
+    return Enumerable.fromGenerator(function * () {
+      for (let outerItem of outerSeq) {
+        let innerItems = lookup.get(innerKeySelector(outerItem)) || Enumerable.empty;
+
+        yield selector(outerItem, innerItems);
+      }
+    });
+  }
+
   intersect(seq) {
     const set = new Set();
 
@@ -221,14 +235,20 @@ class Enumerable {
     return Enumerable.create(seq).isSubsetOf(this);
   }
 
-  join(rightSeq, leftKeySelector, rightKeySelector, selector) {
-    rightSeq = Enumerable.create(rightSeq);
-    const lookup = this.toLookup(leftKeySelector);
+  join(innerSeq, outerKeySelector, innerKeySelector, selector) {
+    innerSeq = Enumerable.create(innerSeq);
+    const lookup = innerSeq.toLookup(innerKeySelector);
+    const outerSeq = this;
 
-    return rightSeq
-      .selectMany(rightItem =>
-        (lookup.get(rightKeySelector(rightItem)) || Enumerable.empty)
-          .select(leftItem => selector(leftItem, rightItem)));
+    return Enumerable.fromGenerator(function * () {
+      for (let outerItem of outerSeq) {
+        let innerItems = lookup.get(innerKeySelector(outerItem)) || Enumerable.empty;
+
+        for (let innerItem of innerItems) {
+          yield selector(outerItem, innerItem);
+        }
+      }
+    });
   }
 
   max() {

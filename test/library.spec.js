@@ -475,13 +475,14 @@ describe("instance methods", () => {
       value: "not relevant"
     }];
 
-    assert(loq(d1)
+    let items = loq(d1)
       .join(d2,
         dd1 => dd1.id,
         dd2 => dd2.id,
         (dd1, dd2) => dd1.value + " " + dd2.value)
-      .orderBy(x => x)
-      .sequenceEqual(["andrew johnson", "chris pike", "chris sperry"]));
+      .orderBy(x => x);
+
+    assert(items.sequenceEqual(["andrew johnson", "chris pike", "chris sperry"]));
     done();
   });
 });
