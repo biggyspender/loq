@@ -36,15 +36,19 @@ class Enumerable {
     if (!Enumerable[empty$]) {
       const emptyIterable = {};
 
-      Object.defineProperty(emptyIterable, Symbol.iterator,
-        {
-          value: [][Symbol.iterator],
-          writable: false,
-          enumerable: true,
-          configurable: false
+      Object.defineProperty(emptyIterable, Symbol.iterator, {
+        value: [][Symbol.iterator],
+        writable: false,
+        enumerable: true,
+        configurable: false
 
-        });
-      Enumerable[empty$] = new Enumerable(emptyIterable);
+      });
+      Object.defineProperty(Enumerable, empty$, {
+        value: new Enumerable(emptyIterable),
+        writable: false,
+        enumerable: true,
+        configurable: false
+      });
     }
     return Enumerable[empty$];
   }
