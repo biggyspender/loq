@@ -10,8 +10,20 @@ const identity = x => x;
 
 class Enumerable {
   constructor(iterable) {
-    this[srcIterable$] = iterable;
-    this[isEnumerable$] = true;
+    Object.defineProperty(this, srcIterable$, {
+      value: iterable,
+      writable: false,
+      enumerable: false,
+      configurable: false
+
+    });
+    Object.defineProperty(this, isEnumerable$, {
+      value: true,
+      writable: false,
+      enumerable: false,
+      configurable: false
+
+    });
   }
 
   static create(iterable) {
@@ -41,12 +53,11 @@ class Enumerable {
         writable: false,
         enumerable: true,
         configurable: false
-
       });
       Object.defineProperty(Enumerable, empty$, {
         value: new Enumerable(emptyIterable),
         writable: false,
-        enumerable: true,
+        enumerable: false,
         configurable: false
       });
     }
@@ -522,7 +533,14 @@ class Enumerable {
 class GroupedEnumerable extends Enumerable {
   constructor(key, iterable) {
     super(iterable);
-    this.key = key;
+    Object.defineProperty(this, "key", {
+      value: key,
+      writable: false,
+      enumerable: true,
+      configurable: false
+
+    });
+
   }
 }
 
@@ -531,7 +549,14 @@ class OrderedEnumerable extends Enumerable {
     const wrappedGroupsArr = Enumerable.create(groupsArr);
 
     super(wrappedGroupsArr.selectMany(g => g));
-    this[orderGrouping$] = wrappedGroupsArr;
+    Object.defineProperty(this, orderGrouping$, {
+      value: wrappedGroupsArr,
+      writable: false,
+      enumerable: false,
+      configurable: false
+
+    });
+
   }
 
   thenBy(keySelector, descending = false) {
@@ -550,7 +575,14 @@ class OrderedEnumerable extends Enumerable {
 class EnumerableSet extends Enumerable {
   constructor(set) {
     super(set);
-    this.__isEnumerableSet = true;
+    Object.defineProperty(this, "__isEnumerableSet", {
+      value: true,
+      writable: false,
+      enumerable: false,
+      configurable: false
+
+    });
+
   }
 
   entries() {
@@ -570,6 +602,14 @@ class EnumerableMap extends EnumerableSet {
   constructor(map) {
     super(map);
     this.__isEnumerableMap = true;
+    Object.defineProperty(this, "__isEnumerableMap", {
+      value: true,
+      writable: false,
+      enumerable: false,
+      configurable: false
+
+    });
+
   }
 
   keys() {
