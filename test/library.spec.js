@@ -8,10 +8,6 @@ const assert = chai.assert;
 // const expect = chai.expect;
 
 describe("library function", () => {
-  it("should fail", done => {
-    assert(false);
-    done();
-  });
   it("should have read-only methods", done => {
     assert.throws(() => {loq.range = null;});
     done();
