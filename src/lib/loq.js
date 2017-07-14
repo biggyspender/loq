@@ -367,7 +367,7 @@ class Enumerable {
       // ReSharper disable once UsageOfPossiblyUnassignedValue
       return foundItem;
     }
-    throw Error("none");
+    throw Error("sequence contains no elements");
   }
 
   singleOrDefault(pred = truePredicate) {
