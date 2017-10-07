@@ -1,4 +1,4 @@
-﻿function mergePropertiesAsReadOnly(src, target) {
+function mergePropertiesAsReadOnly(src, target) {
   const propertyDescriptors = Object.keys(src).reduce((acc, curr) => {
     acc[curr] = {
       value: src[curr],

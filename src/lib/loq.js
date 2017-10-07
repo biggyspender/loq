@@ -1,4 +1,4 @@
-﻿import mergePropertiesAsReadOnly from "./mergePropertiesAsReadOnly.js";
+import mergePropertiesAsReadOnly from "./mergePropertiesAsReadOnly.js";
 
 const orderGrouping$ = Symbol("orderGrouping");
 const isEnumerable$ = Symbol("isEnumerable");
