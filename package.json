@@ -1,11 +1,11 @@
 {
   "name": "loq",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "es2015 implementation of linq",
   "main": "lib/loq.js",
-  "types": "src/loq.d.ts",  
+  "types": "lib/loq.d.ts",  
   "scripts": {
-    "build": "webpack --env build",
+    "build": "webpack --env build && cp -f ./src/loq.d.ts ./lib",
     "dev": "webpack --progress --colors --watch --env dev",
     "test": "nyc --reporter=html mocha --compilers js:babel-core/register --colors ./test/*.spec.js",
     "test:watch": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js"
