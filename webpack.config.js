@@ -28,6 +28,7 @@ const config = {
   },
   module: {
     rules: [
+      { test: /\.ts$/, loader: "awesome-typescript-loader?silent=true", exclude: /(node_modules|bower_components)/ },
       {
         test: /(\.jsx|\.js)$/,
         loader: "babel-loader",

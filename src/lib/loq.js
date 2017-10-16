@@ -42,7 +42,7 @@ class Enumerable {
     return new Enumerable(iterable);
   }
 
-  static get empty() {
+  static empty() {
     // make every attempt to make this as readonly as possible
     // because overwriting it would be disastrous
     if (!Enumerable[empty$]) {
@@ -232,7 +232,7 @@ class Enumerable {
 
     return Enumerable.fromGenerator(function * () {
       for (let outerItem of outerSeq) {
-        let innerItems = lookup.get(innerKeySelector(outerItem)) || Enumerable.empty;
+        let innerItems = lookup.get(innerKeySelector(outerItem)) || Enumerable.empty();
 
         yield selector(outerItem, innerItems);
       }
@@ -265,7 +265,7 @@ class Enumerable {
 
     return Enumerable.fromGenerator(function * () {
       for (let outerItem of outerSeq) {
-        let innerItems = lookup.get(innerKeySelector(outerItem)) || Enumerable.empty;
+        let innerItems = lookup.get(innerKeySelector(outerItem)) || Enumerable.empty();
 
         for (let innerItem of innerItems) {
           yield selector(outerItem, innerItem);

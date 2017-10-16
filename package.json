@@ -1,8 +1,9 @@
 {
   "name": "loq",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "description": "es2015 implementation of linq",
   "main": "lib/loq.js",
+  "types": "lib/index.d.ts",  
   "scripts": {
     "build": "webpack --env build",
     "dev": "webpack --progress --colors --watch --env dev",
@@ -24,9 +25,10 @@
     "eslint-loader": "1.7.1",
     "mocha": "3.3.0",
     "nyc": "^11.0.3",
-    "typescript": "^2.4.1",
+    "typescript": "^2.5.3",
     "webpack": "2.4.1",
-    "yargs": "7.1.0"
+    "yargs": "7.1.0",
+    "awesome-typescript-loader": "3.2.3"
   },
   "repository": {
     "type": "git",

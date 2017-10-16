@@ -76,7 +76,7 @@ describe("static methods", () => {
   });
 
   it("has an empty sequence", done => {
-    let seq = loq.empty;
+    let seq = loq.empty();
 
     assert(seq.sequenceEqual([]));
     done();
@@ -406,7 +406,7 @@ describe("instance methods", () => {
 
   it("has working singleOrDefault implementation", done => {
     assert(loq.fromSingleValue(5).singleOrDefault() === 5);
-    assert(loq.empty.singleOrDefault() === undefined);
+    assert(loq.empty().singleOrDefault() === undefined);
     assert(loq([1, 2]).singleOrDefault(x => x === 1) === 1);
     done();
   });
