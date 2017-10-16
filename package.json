@@ -1,9 +1,9 @@
 {
   "name": "loq",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "es2015 implementation of linq",
   "main": "lib/loq.js",
-  "types": "lib/index.d.ts",  
+  "types": "src/loq.d.ts",  
   "scripts": {
     "build": "webpack --env build",
     "dev": "webpack --progress --colors --watch --env dev",
