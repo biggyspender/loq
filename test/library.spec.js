@@ -292,6 +292,25 @@ describe("instance methods", () => {
     done();
   });
 
+  it("can get the last item of a sequence", done => {
+    let data = loq([7, 8, 9]);
+
+    console.log(data.last());
+    assert(data.last() === 9);
+    assert(data.last(x => x <= 8) === 8);
+    assert.throws(() => data.last(x => x > 9));
+    done();
+  });
+
+  it("can get the last item of a sequence or null", done => {
+    let data = loq([7, 8, 9]);
+
+    assert(data.lastOrDefault() === 9);
+    assert(data.lastOrDefault(x => x <= 8) === 8);
+    assert(data.lastOrDefault(x => x > 9) === undefined);
+    done();
+  });
+
   it("can get the first item of a sequence", done => {
     let data = loq([7, 8, 9]);
 

@@ -209,6 +209,27 @@ class Enumerable {
     return undefined;
   }
 
+  last(pred = truePredicate) {
+    let returnVal = this.lastOrDefault(pred);
+
+    if (typeof (returnVal) === "undefined") {
+      throw Error("sequence contains no elements");
+    }
+    return returnVal;
+  }
+
+  lastOrDefault(pred = truePredicate) {
+    let i = 0;
+    let returnVal;
+
+    for (let item of this) {
+      if (pred(item, i++)) {
+        returnVal = item;
+      }
+    }
+    return returnVal;
+  }
+
   forEach(action) {
     for (let item of this) {
       action(item);
