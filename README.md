@@ -2,13 +2,13 @@
 
 [![Build Status](https://travis-ci.org/biggyspender/loq.svg?branch=master)](https://travis-ci.org/biggyspender/loq) [![npm version](https://badge.fury.io/js/loq.svg)](https://badge.fury.io/js/loq)
 
-A linq inspired library for javascript
+# A linq inspired library for javascript
 
-Why?
+### Why?
 
 With the advent of javascript iterators and generators, its possible to pipe sequences through a bunch of transformations without materializing collections (arrays) for the intermediate steps. This library attempts to recreate the dotnet linq-to-objects api to provide a number of standard operations on iterable sequences.
 
-How:
+### How:
 
 Just wrap your iterable with a call to `loq(myIterable)`, and start transforming your data:
 
@@ -26,7 +26,7 @@ Just wrap your iterable with a call to `loq(myIterable)`, and start transforming
     const arr = squaresBelowTen.toArray();
     console.log(arr);
 
-More examples:
+#### More examples:
 
 Let's make a collection of cars:
 
@@ -68,3 +68,7 @@ Or we could count the number of cars for each manufacturer:
     for(var c of carsPerManufacturer){
       console.log(`${c.manufacturer} : ${c.count}`);
     }
+
+### What else?
+
+The [tests](https://github.com/biggyspender/loq/blob/master/test/library.spec.js) for this project are kept up to date and are the best place to look for other examples.
