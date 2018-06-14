@@ -21,7 +21,7 @@ Just wrap your iterable with a call to `loq(myIterable)`, and start transforming
     
 ...or if you'd like an array of your results, you can materialize a loq query with the `.toArray()` method:
 
-    const someNumbers = [1, 2, 3, 4];
+    const someNumbers = loq.range(1, 4);
     const squaresBelowTen = loq(someNumbers).select(n => n * n).where(n => n < 10);
     const arr = squaresBelowTen.toArray();
     console.log(arr);
