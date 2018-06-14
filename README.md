@@ -51,7 +51,7 @@ Let's make a collection of cars:
       }
     ];
     
-...and sort them by make then by model:
+...and sort them by manufacturer, and then by model:
 
     const orderedCars = loq(cars).orderBy(c => c.manufacturer).thenBy(c => c.model);
     console.log(orderedCars.toArray());
