@@ -8,7 +8,7 @@
 
 With the advent of javascript iterators and generators, its possible to pipe sequences through a bunch of transformations without materializing collections (arrays) for the intermediate steps. This library attempts to recreate the dotnet linq-to-objects api to provide a number of standard operations on iterable sequences.
 
-### How:
+### How?
 
 Just wrap your iterable with a call to `loq(myIterable)`, and start transforming your data:
 
@@ -69,6 +69,6 @@ Or we could count the number of cars for each manufacturer:
       console.log(`${c.manufacturer} : ${c.count}`);
     }
 
-### What else?
+### What next?
 
 The [tests](https://github.com/biggyspender/loq/blob/master/test/library.spec.js) for this project are kept up to date and are the best place to look for other examples.
