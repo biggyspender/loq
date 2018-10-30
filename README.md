@@ -1,3 +1,5 @@
+*** Note: this package is deprecated and has been replaced by https://github.com/biggyspender/blinq/ ***
+
 # loq.js
 
 [![Build Status](https://travis-ci.org/biggyspender/loq.svg?branch=master)](https://travis-ci.org/biggyspender/loq) [![npm version](https://badge.fury.io/js/loq.svg)](https://badge.fury.io/js/loq)
